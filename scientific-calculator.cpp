@@ -570,6 +570,46 @@ class Sets{
             res.size = idx;
             return res;
         }
+        Sets& operator++(){
+            for(int i = 0; i < size; i++){
+                set[i]++;
+            }
+            return *this;
+        }
+        bool operator==(const Sets& s2){
+            if(this->size != s2.size)
+                return false;
+            for(int i = 0; i < this->size; i++){
+                bool found = false;
+                for(int j = 0; j < s2.size; j++){
+                    if(this->set[i] == s2.set[j]){
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    return false;
+            }
+            return true;
+        }
+        bool operator<(const Sets& s2){
+            if(this->size >= s2.size)
+                return false;
+            for(int i = 0; i < this->size; i++){
+                bool found = false;
+                for(int j = 0; j < s2.size; j++){
+                    if(this->set[i] == s2.set[j]){
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                    return false;
+            }
+            return true;
+        }
+
+        friend bool operator==(int val, const Sets& s);
         friend istream& operator>>(istream& in, Sets& s);
         friend ostream& operator<<(ostream& out, Sets& s);
         ~Sets(){
@@ -577,6 +617,13 @@ class Sets{
         }
 };
 
+bool operator==(int val, const Sets& s){
+    if(s.size != 1)
+        return false;
+    if(s.set[0] == val)
+        return true;
+    return false;
+}
 istream& operator>>(istream& in, Sets& s){
     cout << "Enter size of set: ";
     in >> s.size;
@@ -600,7 +647,11 @@ void setsMenu(){
     cout << "1 - Union of Sets\n";
     cout << "2 - Intersection of Sets\n";
     cout << "3 - Difference of Sets\n";
-    cout << "4 - Return\n";
+    cout << "4 - Equality Check!\n";
+    cout << "5 - Single Element Check!\n";
+    cout << "6 - Subset Check!\n";
+    cout << "7 - Increment Operation\n";
+    cout << "8 - Return\n";
     cout << "Enter Choice: ";
 }
 
@@ -954,19 +1005,17 @@ int main(){
             Sets s1, s2;
             cin >> s1 >> s2;
             Sets res;
-
             do{
                 setsMenu();
                 cin >> choice;
-
                 switch(choice){
                     case 1:
-                        res = s1 * s2;
+                        res = s1 + s2;
                         cout << "Union of Sets: " << endl;
                         cout << res;
                         break;
                     case 2:
-                        res = s1 + s2;
+                        res = s1 * s2;
                         cout << "Intersection of Sets: " << endl;
                         cout << res;
                         break;
@@ -976,12 +1025,48 @@ int main(){
                         cout << res;
                         break;
                     case 4:
-                        cout << "Returning....." << endl;
+                        if(s1 == s2)
+                            cout << "Sets are Equal!" << endl;
+                        else
+                            cout << "Sets are not Equal!" << endl;
                         break;
+                    case 5:
+                        int val;
+                        cout << "Enter value to check: ";
+                        cin >> val;
+                        if(val == s1)
+                            cout << val << " is present in Set 1" << endl;
+                        else
+                            cout << val << " is not present in Set 1" << endl;
+
+                        if(val == s2)
+                            cout << val << " is present in Set 2" << endl;
+                        else
+                            cout << val << " is not present in Set 2" << endl;    
+                        break;
+                    case 6:
+                        if(s1 < s2)
+                            cout << "Set 1 is a subset of Set 2" << endl;
+                        else
+                            cout << "Set 1 is not a subset of Set 2" << endl;    
+                        break;
+                    case 7:
+                        ++s1;
+                        ++s2;
+                        cout << "After Incrementing....." << endl;
+                        cout << "Set 1: " << endl;
+                        cout << s1;
+
+                        cout << "Set 2: " << endl;
+                        cout << s2; 
+                        break; 
+                    case 8:
+                        cout << "Returning....." << endl; 
+                        break; 
                     default:
-                        cout << "Invalid Choice..... Try Again!" << endl;
+                        cout << "Invalid Choice..... Try Again!" << endl; 
                 }
-            }while(choice != 4);
+            }while(choice != 8);
         }
         else if(main_choice == 5){
             Matrix m1, m2;
@@ -1068,5 +1153,3 @@ ostream& operator<<(ostream& out, Polynomial& p){
     out << endl;
     return out;
 }
-
-
