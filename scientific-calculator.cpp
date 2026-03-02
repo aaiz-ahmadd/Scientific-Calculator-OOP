@@ -644,8 +644,8 @@ ostream& operator<<(ostream& out, Sets& s){
 }
 
 void setsMenu(){
-    cout << "1 - Union of Sets\n";
-    cout << "2 - Intersection of Sets\n";
+    cout << "1 - Intersection of Sets\n";
+    cout << "2 - Union of Sets\n";
     cout << "3 - Difference of Sets\n";
     cout << "4 - Equality Check!\n";
     cout << "5 - Single Element Check!\n";
@@ -679,6 +679,9 @@ class Matrix{
                     this->matrix[i][j] = m.matrix[i][j];
                 }
             }
+        }
+        int getSize(){
+            return this->size;
         }
         Matrix operator+(const Matrix& m2){
             Matrix res(size);
@@ -774,7 +777,6 @@ void menu(){
     cout << "3 - Polynomials\n";
     cout << "4 - Sets\n";
     cout << "5 - Matrices\n";
-    cout << "6 - Big Integers\n";
     cout << "0 - Exit\n";
     cout << "Enter Choice: ";
 }
@@ -1011,12 +1013,12 @@ int main(){
                 switch(choice){
                     case 1:
                         res = s1 + s2;
-                        cout << "Union of Sets: " << endl;
+                        cout << "Intersection of Sets: " << endl;
                         cout << res;
                         break;
                     case 2:
                         res = s1 * s2;
-                        cout << "Intersection of Sets: " << endl;
+                        cout << "Union of Sets: " << endl;
                         cout << res;
                         break;
                     case 3:
@@ -1072,37 +1074,41 @@ int main(){
             Matrix m1, m2;
             cin >> m1 >> m2;
             Matrix res;
+            int size1 = m1.getSize();
+            int size2 = m2.getSize();
 
-            do{
-                matrixMenu();
-                cin >> choice;
+            if(size1 == size2){
+                do{
+                    matrixMenu();
+                    cin >> choice;
 
-                switch(choice){
-                    case 1:
-                        res = m1 + m2;
-                        cout << "Result of Matrix Addition: " << endl;
-                        cout << res;
-                        break;
-                    case 2:
-                        res = m1 - m2;
-                        cout << "Result of Matrix Subtraction: " << endl;
-                        cout << res;
-                        break;
-                    case 3:
-                        res = m1 * m2;
-                        cout << "Result of Matrix Multiplication: " << endl;
-                        cout << res;
-                        break;
-                    case 4:
-                        cout << "Returning....." << endl;
-                        break;
-                    default:
-                        cout << "Invalid Choice..... Try Again!" << endl;
-                }
-            }while(choice != 4);
-        }
-        else if(main_choice == 6){
-            
+                    switch(choice){
+                        case 1:
+                            res = m1 + m2;
+                            cout << "Result of Matrix Addition: " << endl;
+                            cout << res;
+                            break;
+                        case 2:
+                            res = m1 - m2;
+                            cout << "Result of Matrix Subtraction: " << endl;
+                            cout << res;
+                            break;
+                        case 3:
+                            res = m1 * m2;
+                            cout << "Result of Matrix Multiplication: " << endl;
+                            cout << res;
+                            break;
+                        case 4:
+                            cout << "Returning....." << endl;
+                            break;
+                        default:
+                            cout << "Invalid Choice..... Try Again!" << endl;
+                    }
+                }while(choice != 4);
+            }
+            else{
+                cout << "Sizes are not same. Unable to perform operations..." << endl;
+            }
         }
         else if(main_choice == 0){
             cout << "Exiting....." << endl;
