@@ -1303,12 +1303,12 @@ public:
             return *this;
         int pivot;
         int lcm;
-        for (int i = 0; i < rows; i++)
+        for(int i = rows - 1; i >= 0; i--)
         {
             pivot = m[i][i];
             if (pivot == 0)
                 continue;
-            for (int k = 0; k < i; k++)
+            for (int k = i - 1; k >= 0; k--)
             {
                 if (m[k][i] == 0)
                     continue;
