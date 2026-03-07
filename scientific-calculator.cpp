@@ -1286,7 +1286,7 @@ public:
                 lcm = LCM(pivot, m[k][i]);
                 int val1 = lcm / abs(pivot);
                 int val2 = lcm / abs(m[k][i]);
-                if ((pivot < 0) != (m[k][i] < 0))
+                if ((pivot < 0 && m[k][i] > 0) || (pivot > 0 && m[k][i] < 0)) 
                     val1 = -val1;
                 for (int l = 0; l < cols; l++)
                 {
@@ -1315,7 +1315,7 @@ public:
                 lcm = LCM(pivot, m[k][i]);
                 int val1 = lcm / abs(pivot);
                 int val2 = lcm / abs(m[k][i]);
-                if ((pivot < 0) != (m[k][i] < 0))
+                if ((pivot < 0 && m[k][i] > 0) || (pivot > 0 && m[k][i] < 0)) 
                     val1 = -val1;
                 for (int l = 0; l < cols; l++)
                 {
@@ -1377,7 +1377,7 @@ public:
                 lcm = LCM(pivot, m[k][i]);
                 int val1 = lcm / abs(pivot);
                 int val2 = lcm / abs(m[k][i]);
-                if ((pivot < 0) != (m[k][i] < 0))
+                if ((pivot < 0 && m[k][i] > 0) || (pivot > 0 && m[k][i] < 0)) 
                     val1 = -val1;
                 for (int l = 0; l < cols; l++)
                 {
