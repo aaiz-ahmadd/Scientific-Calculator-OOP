@@ -64,6 +64,40 @@ public:
         res.denominator /= cd;
         return res;
     }
+    Fraction operator++()
+    {
+        this->numerator += this->denominator;
+        int cd = HCF(this->numerator, this->denominator);
+        this->numerator /= cd;
+        this->denominator /= cd;
+        return *this;
+    }
+    Fraction operator++(int)
+    {
+        Fraction temp = *this;
+        this->numerator += this->denominator;
+        int cd = HCF(this->numerator, this->denominator);
+        this->numerator /= cd;
+        this->denominator /= cd;
+        return temp;
+    }
+    Fraction operator--()
+    {
+        this->numerator -= this->denominator;
+        int cd = HCF(this->numerator, this->denominator);
+        this->numerator /= cd;
+        this->denominator /= cd;
+        return *this;
+    }
+    Fraction operator--(int)
+    {
+        Fraction temp = *this;
+        this->numerator -= this->denominator;
+        int cd = HCF(this->numerator, this->denominator);
+        this->numerator /= cd;
+        this->denominator /= cd;
+        return temp;
+    }
 
     friend Fraction operator+(int val, Fraction f);
     friend Fraction operator+(Fraction f, int val);
@@ -174,7 +208,11 @@ void fractionMenu()
     cout << "10 - Check: F1 <= f2\n";
     cout << "11 - int + Fraction\n";
     cout << "12 - Fraction + int\n";
-    cout << "13 - Return\n";
+    cout << "13 - PostFix Increment Fraction\n";
+    cout << "14 - PostFix Decrement Fraction\n";
+    cout << "15 - PreFix Increment Fraction\n";
+    cout << "16 - PreFix Decrement Fraction\n";
+    cout << "0 - Return\n";
     cout << "Enter Choice: ";
 }
 
@@ -1587,6 +1625,9 @@ int main()
 
                 switch (choice)
                 {
+                case 0:
+                    cout << "Returning......." << endl;
+                    break;
                 case 1:
                     res = f1 + f2;
                     cout << "Fraction Addition....." << endl;
@@ -1658,12 +1699,25 @@ int main()
                     cout << res;
                     break;
                 case 13:
-                    cout << "Returning......." << endl;
+                    f1++;
+                    cout << "Fraction 1 after PostFix Increment: " << f1 << endl;
+                    break;
+                case 14:
+                    ++f1;
+                    cout << "Fraction 1 after PreFix Increment: " << f1 << endl;
+                    break;
+                case 15:
+                    f1--;
+                    cout << "Fraction 1 after PostFix Decrement: " << f1 << endl;
+                    break;
+                case 16:
+                    --f1;
+                    cout << "Fraction 1 after PreFix Decrement: " << f1 << endl;
                     break;
                 default:
                     cout << "Invalid Choice! Try Again...." << endl;
                 }
-            } while (choice != 13);
+            } while (choice != 0);
         }
         else if (main_choice == 2)
         {
